@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Cursor from './components/Cursor';
 import StarsBackground from './components/StarsBackground';
+import FloatingElements3D from './components/FloatingElements3D';
 import Home from './pages/Home';
 import Cause from './pages/Cause';
 import Memories from './pages/Memories';
@@ -9,6 +10,7 @@ import Memories from './pages/Memories';
 function App() {
     return (
         <>
+            <FloatingElements3D />
             <StarsBackground />
             <Cursor />
             <Routes>
