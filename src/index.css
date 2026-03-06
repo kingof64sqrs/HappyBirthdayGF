@@ -829,6 +829,89 @@ h1.title-gradient {
     }
 }
 
+/* ---------------- Krishna's Message Section ---------------- */
+.krishna-message {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: clamp(2rem, 5vw, 3.5rem);
+    position: relative;
+    z-index: 3;
+    background: linear-gradient(135deg, rgba(183, 110, 121, 0.05), rgba(223, 177, 96, 0.05));
+    border: 1px solid rgba(183, 110, 121, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(183, 110, 121, 0.1) inset;
+    animation: fadeInSpecial 1.2s ease-out 0.2s both;
+}
+
+.krishna-message h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    text-align: center;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+}
+
+.krishna-message .message-content {
+    position: relative;
+}
+
+.krishna-message .message-content::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    font-size: 5rem;
+    font-family: var(--font-heading);
+    color: var(--rose-gold);
+    opacity: 0.2;
+    line-height: 1;
+}
+
+.krishna-message p {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    line-height: 1.9;
+    color: #e8e8e8;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+}
+
+.krishna-message p em {
+    color: var(--rose-gold);
+    font-style: italic;
+}
+
+.krishna-message p strong {
+    color: var(--gold-light);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.krishna-message .signature {
+    text-align: right;
+    font-style: italic;
+    color: var(--rose-gold);
+    margin-top: 2.5rem;
+    margin-bottom: 0;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .krishna-message {
+        margin: 3rem 1rem;
+        padding: 2rem 1.5rem;
+    }
+    
+    .krishna-message .message-content::before {
+        font-size: 3.5rem;
+        top: -15px;
+        left: -5px;
+    }
+}
+
 .final-message {
     text-align: center;
     padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);

@@ -94,6 +94,36 @@ const Memories = () => {
                 </div>
             </section>
 
+            <section className="krishna-message">
+                <h2 className="title-gradient">A Message from Krishna 💌</h2>
+                <div className="message-content">
+                    <p>
+                        At first, I remember thinking <em>"ye bhoot kon hai?"</em> — honestly, that was my very first reaction when I saw you. I never imagined that the same person would slowly become someone so important in my life.
+                    </p>
+                    <p>
+                        But as time passed, I started seeing a completely different side of you. The way you guided me, supported me, and stood by me like an elder sister — it meant more than you probably realize. Whenever I was confused or needed advice, you were always there, patiently explaining things and pushing me to do better.
+                    </p>
+                    <p>
+                        Yes, you do get angry quickly, and sometimes your sudden mood changes would make me think twice before saying anything. But strangely, even that became something normal for me, something that just felt like <em>you</em>. And now when I think about it, even those moments are something I'm going to miss.
+                    </p>
+                    <p>
+                        You didn't just become a colleague or a friend — you became someone I could rely on, someone who genuinely cared. The way you supported me, corrected me when I was wrong, and encouraged me when I needed it most is something I'll always be grateful for.
+                    </p>
+                    <p>
+                        It's honestly hard to accept that you're leaving. It feels like a small part of everyday life is changing. But I truly hope wherever you go, you get all the success, happiness, and peace you deserve.
+                    </p>
+                    <p>
+                        Thank you for being the amazing person you are, for guiding me, supporting me, and for being the sister I never had.
+                    </p>
+                    <p>
+                        And once again, <strong>Happy Birthday!</strong> I hope this new year of your life brings you endless happiness, success, and everything your heart wishes for.
+                    </p>
+                    <p className="signature">
+                        <em>— Krishna</em>
+                    </p>
+                </div>
+            </section>
+
             <section className="final-message">
                 <h2>Thank You for Being You</h2>
                 <p>
