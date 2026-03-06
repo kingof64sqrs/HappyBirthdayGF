@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 
 const memoriesData = [
@@ -20,6 +20,7 @@ const memoriesData = [
 
 const Memories = () => {
     const containerRef = useRef(null);
+    const [showNotification, setShowNotification] = useState(true);
 
     useEffect(() => {
         // Initial card animations
@@ -48,8 +49,33 @@ const Memories = () => {
         return () => observer.disconnect();
     }, []);
 
+    const handleCloseNotification = () => {
+        gsap.to('.gussa-notification', {
+            scale: 0.8,
+            opacity: 0,
+            duration: 0.4,
+            ease: 'back.in(1.5)',
+            onComplete: () => setShowNotification(false)
+        });
+    };
+
     return (
         <div ref={containerRef}>
+            {/* Gussa Notification Modal */}
+            {showNotification && (
+                <div className="gussa-notification-overlay">
+                    <div className="gussa-notification">
+                        <div className="notification-icon">😤</div>
+                        <h3>Ek baat yaad rakhna!</h3>
+                        <p>Bewaja gussa mat karna 😊</p>
+                        <button className="gussa-btn" onClick={handleCloseNotification}>
+                            <span className="btn-text">Gussa Nahi Karungi! 🤝</span>
+                            <span className="btn-glow"></span>
+                        </button>
+                    </div>
+                </div>
+            )}
+
             <section className="welcome">
                 <h1 className="title-gradient">Amazing Memories Together</h1>
                 <p>Every moment we've shared has been special. Let's cherish these wonderful memories...</p>

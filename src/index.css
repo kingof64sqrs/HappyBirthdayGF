@@ -912,6 +912,178 @@ h1.title-gradient {
     }
 }
 
+/* ---------------- Gussa Notification Modal ---------------- */
+.gussa-notification-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(7, 7, 9, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: fadeInOverlay 0.3s ease-out;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.gussa-notification {
+    background: linear-gradient(135deg, rgba(223, 177, 96, 0.1), rgba(183, 110, 121, 0.1));
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    padding: clamp(2rem, 5vw, 3rem);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 50px rgba(223, 177, 96, 0.2) inset;
+    animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.gussa-notification::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(45deg, var(--gold), var(--rose-gold), var(--gold));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+    animation: borderGlow 3s linear infinite;
+}
+
+@keyframes borderGlow {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.notification-icon {
+    font-size: clamp(3rem, 8vw, 4rem);
+    margin-bottom: 1rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.gussa-notification h3 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.gussa-notification p {
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    color: #e8e8e8;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+.gussa-btn {
+    display: inline-block;
+    position: relative;
+    padding: clamp(0.9rem, 2.5vw, 1.1rem) clamp(2rem, 5vw, 3rem);
+    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+    background: transparent;
+    border: 2px solid var(--gold);
+    border-radius: 50px;
+    color: var(--gold-light);
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    font-family: var(--font-text);
+}
+
+.gussa-btn .btn-text {
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.gussa-btn .btn-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, var(--gold) 0%, var(--rose-gold) 100%);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: 1;
+}
+
+.gussa-btn:hover {
+    border-color: var(--rose-gold);
+    box-shadow: 0 8px 25px rgba(223, 177, 96, 0.4), 0 0 30px rgba(223, 177, 96, 0.2) inset;
+    transform: translateY(-3px);
+}
+
+.gussa-btn:hover .btn-text {
+    color: var(--bg-dark);
+}
+
+.gussa-btn:hover .btn-glow {
+    width: 300%;
+    height: 300%;
+}
+
+.gussa-btn:active {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .gussa-notification {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+    }
+
+    .notification-icon {
+        font-size: 3.5rem;
+    }
+}
+
 .final-message {
     text-align: center;
     padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
