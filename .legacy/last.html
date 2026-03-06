@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazing Memories Together ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Poppins:wght@300;400;500&display=swap');
+
+        :root {
+            --gold: #dfb160;
+            --gold-light: #f3d488;
+            --gold-dark: #b58539;
+            --rose-gold: #b76e79;
+            --bg-dark: #070709;
+            --bg-gradient: linear-gradient(135deg, #070709 0%, #15111c 50%, #0c0812 100%);
+            --glass-bg: rgba(20, 16, 24, 0.5);
+            --glass-border: rgba(223, 177, 96, 0.2);
+            --font-heading: 'Playfair Display', serif;
+            --font-text: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            font-family: var(--font-text);
+            overflow-x: hidden;
+            color: #fff;
+            position: relative;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            mix-blend-mode: screen;
+        }
+
+        .cursor.hover-state {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(223, 177, 96, 0.1);
+        }
+
+        .current-cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold-light);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Starry Background */
+        .magic-sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                radial-gradient(1px 1px at 20px 30px, var(--gold-light), rgba(0, 0, 0, 0)),
+                radial-gradient(1px 1px at 40px 70px, var(--gold-light), rgba(0, 0, 0, 0)),
+                radial-gradient(1.5px 1.5px at 50px 160px, var(--gold-light), rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 90px 40px, var(--gold-light), rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 130px 80px, var(--gold-light), rgba(0, 0, 0, 0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: stars 100s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes stars {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-200px);
+            }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            filter: drop-shadow(0 0 10px rgba(223, 177, 96, 0.4));
+            animation: floatHeart var(--float-duration, 6s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translate(0, 100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(var(--translate-x, 0), -100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .welcome {
+            text-align: center;
+            padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+            position: relative;
+            z-index: 3;
+        }
+
+        .welcome h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            font-style: italic;
+            background: linear-gradient(to right, var(--gold-light), var(--gold), var(--rose-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(223, 177, 96, 0.2);
+            animation: fadeInScale 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: #d1d1d1;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-weight: 300;
+            animation: fadeIn 2s ease 0.5s both;
+        }
+
+        .memory-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: clamp(1rem, 4vw, 3rem);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: clamp(1.8rem, 4vw, 3rem);
+            z-index: 3;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .memory-container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+
+        .memory-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .memory-card.animate-in {
+            animation: cardSlideIn 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+
+        @keyframes cardSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .memory-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(223, 177, 96, 0.2);
+            border-color: rgba(223, 177, 96, 0.5);
+            cursor: none;
+        }
+
+        .memory-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: skewX(-25deg);
+            transition: 0.7s;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .memory-card:hover::before {
+            left: 200%;
+        }
+
+        .memory-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 1.25rem;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.6s;
+            filter: brightness(0.92) contrast(1.05) saturate(1.1);
+        }
+
+        .memory-card:hover .memory-img {
+            transform: scale(1.08) rotate(1deg);
+            filter: brightness(1) contrast(1.1) saturate(1.2);
+        }
+
+        .memory-date {
+            font-family: var(--font-heading);
+            color: var(--gold);
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-style: italic;
+            text-shadow: 0 0 20px rgba(223, 177, 96, 0.3);
+        }
+
+        .memory-caption {
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            line-height: 1.7;
+            color: #e2e2e2;
+            flex-grow: 1;
+            font-weight: 300;
+        }
+
+        .final-message {
+            text-align: center;
+            padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+            margin-top: 2rem;
+            position: relative;
+            z-index: 3;
+            background: linear-gradient(to top, var(--bg-dark), transparent);
+        }
+
+        .final-message h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            background: linear-gradient(to right, var(--gold-light), var(--rose-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                text-shadow: 0 0 20px rgba(223, 177, 96, 0.1);
+                transform: scale(1);
+            }
+
+            100% {
+                text-shadow: 0 0 40px rgba(223, 177, 96, 0.4);
+                transform: scale(1.02);
+            }
+        }
+
+        .final-message p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: #e2e2e2;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .goodbye-btn {
+            display: inline-block;
+            position: relative;
+            padding: clamp(1rem, 3vw, 1.2rem) clamp(2.5rem, 6vw, 3.5rem);
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            background: transparent;
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            color: var(--gold-light);
+            text-decoration: none;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 2rem;
+        }
+
+        .btn-text {
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+
+        .btn-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, var(--rose-gold) 0%, transparent 60%);
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s ease;
+            z-index: 1;
+        }
+
+        .goodbye-btn:hover {
+            border-color: transparent;
+            box-shadow: 0 10px 30px rgba(223, 177, 96, 0.3), 0 0 20px rgba(223, 177, 96, 0.2) inset;
+            transform: translateY(-3px);
+            cursor: none;
+        }
+
+        .goodbye-btn:hover .btn-text {
+            color: var(--bg-dark);
+            font-weight: 600;
+        }
+
+        .goodbye-btn:hover .btn-glow {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-dark);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
+        }
+
+        /* Hide cursor on mobile */
+        @media (hover: none) and (pointer: coarse) {
+            * {
+                cursor: auto !important;
+            }
+            
+            .cursor,
+            .current-cursor-dot {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="magic-sparkles"></div>
+    <div class="floating-hearts">
+        <!-- Celebration elements will be generated via CSS -->
+        <div class="heart" style="--float-duration: 6s; --delay: 0s; --translate-x: 20px;">🎉</div>
+        <div class="heart" style="--float-duration: 8s; --delay: 1s; --translate-x: -30px;">✨</div>
+        <div class="heart" style="--float-duration: 7s; --delay: 2s; --translate-x: 40px;">🎂</div>
+        <div class="heart" style="--float-duration: 9s; --delay: 3s; --translate-x: -20px;">🌟</div>
+        <div class="heart" style="--float-duration: 5s; --delay: 4s; --translate-x: 30px;">🌸</div>
+    </div>
+
+    <section class="welcome">
+        <h1>Amazing Memories Together</h1>
+        <p>Every moment we've shared has been special. Let's cherish these wonderful memories...</p>
+    </section>
+
+    <div class="memory-container">
+        <div class="memory-card">
+            <img src="./photos/WhatsApp%20Image%202026-03-06%20at%2011.13.08%20AM.jpeg" alt="Memory 1"
+                class="memory-img">
+            <div class="memory-date">Her Smile Says It All</div>
+            <div class="memory-caption">You're truly one of the most wonderful people I know, and I feel blessed to have
+                you as my elder sister.✨</div>
+        </div>
+        <div class="memory-card">
+            <img src="./photos/WhatsApp%20Image%202026-03-06%20at%2011.13.09%20AM.jpeg" alt="Memory 2"
+                class="memory-img">
+            <div class="memory-date">Together Vibes</div>
+            <div class="memory-caption">May your journey ahead be filled with happiness, success, and endless
+                smiles.😊🌟</div>
+        </div>
+        <div class="memory-card">
+            <img src="./photos/WhatsApp%20Image%202026-03-06%20at%2011.13.09%20AM%20(1).jpeg" alt="Memory 3"
+                class="memory-img">
+            <div class="memory-date">Beautiful Soul</div>
+            <div class="memory-caption">Keep being the amazing person you are—you make every moment brighter.🌸✨</div>
+        </div>
+        <div class="memory-card">
+            <img src="./photos/WhatsApp%20Image%202026-03-06%20at%2011.13.11%20AM.jpeg" alt="Memory 4"
+                class="memory-img">
+            <div class="memory-date">Precious Moments</div>
+            <div class="memory-caption">Every moment with you is a treasure worth cherishing forever.💫</div>
+        </div>
+        <div class="memory-card">
+            <img src="./photos/WhatsApp%20Image%202026-03-06%20at%2011.13.11%20AM%20(1).jpeg" alt="Memory 5"
+                class="memory-img">
+            <div class="memory-date">Joyful Times</div>
+            <div class="memory-caption">Your laughter and joy light up every room you enter.🎉</div>
+        </div>
+        <div class="memory-card">
+            <img src="./photos/WhatsApp%20Image%202026-03-06%20at%2011.13.12%20AM.jpeg" alt="Memory 6"
+                class="memory-img">
+            <div class="memory-date">Always There</div>
+            <div class="memory-caption">Thank you for being such an amazing elder sister and friend.🌺</div>
+        </div>
+        <div class="memory-card">
+            <img src="./photos/WhatsApp%20Image%202026-03-06%20at%2011.13.12%20AM%20(1).jpeg" alt="Memory 7"
+                class="memory-img">
+            <div class="memory-date">Special Bond</div>
+            <div class="memory-caption">Our bond is one of the most precious gifts in my life.🌟</div>
+        </div>
+        <div class="memory-card">
+            <img src="./photos/WhatsApp%20Image%202026-03-06%20at%2011.13.13%20AM.jpeg" alt="Memory 8"
+                class="memory-img">
+            <div class="memory-date">Beautiful Memories</div>
+            <div class="memory-caption">Creating wonderful memories together, one moment at a time.✨</div>
+        </div>
+        <div class="memory-card">
+            <img src="./photos/WhatsApp%20Image%202026-03-06%20at%2011.14.10%20AM.jpeg" alt="Memory 9"
+                class="memory-img">
+            <div class="memory-date">Forever Grateful</div>
+            <div class="memory-caption">Grateful for every laugh, every talk, and every shared moment.💕</div>
+        </div>
+        <div class="memory-card">
+            <img src="./photos/WhatsApp%20Image%202026-03-06%20at%2011.20.57%20AM.jpeg" alt="Memory 10"
+                class="memory-img">
+            <div class="memory-date">Celebrating You</div>
+            <div class="memory-caption">Today we celebrate the amazing person you are. Happy Birthday! 🎂</div>
+        </div>
+
+    </div>
+
+    <section class="final-message">
+        <h2>Thank You for Being You</h2>
+        <p>Every laugh, every chat, and every moment we've shared has been truly special. 💫<br>
+            I'm so grateful to have you as my elder sister and friend, and for all the positivity you bring into my
+            life.<br>
+            On your birthday, I wish for endless happiness, joy, and success to come your way. 🌸</p>
+        <p>You deserve all the best in the world—keep shining and spreading your beautiful energy. ✨</p>
+        <a href="#" class="goodbye-btn">
+            <span class="btn-text">Until We Celebrate Again 🎉</span>
+            <span class="btn-glow"></span>
+        </a>
+    </section>
+
+    <script>
+        // Custom Cursor Implementation (Desktop Only)
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            const cursorOuter = document.createElement('div');
+            cursorOuter.className = 'cursor';
+            document.body.appendChild(cursorOuter);
+
+            const cursorInner = document.createElement('div');
+            cursorInner.className = 'current-cursor-dot';
+            document.body.appendChild(cursorInner);
+
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let cursorX = mouseX;
+            let cursorY = mouseY;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                cursorInner.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+            });
+
+            // Simple animation loop for outer cursor lag
+            function animateCursor() {
+                let dx = mouseX - cursorX;
+                let dy = mouseY - cursorY;
+
+                cursorX += dx * 0.15;
+                cursorY += dy * 0.15;
+
+                cursorOuter.style.transform = `translate(calc(${cursorX}px - 50%), calc(${cursorY}px - 50%))`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Cursor Hover Effects
+            document.querySelectorAll('a, .memory-card').forEach(el => {
+                el.addEventListener('mouseenter', () => cursorOuter.classList.add('hover-state'));
+                el.addEventListener('mouseleave', () => cursorOuter.classList.remove('hover-state'));
+            });
+        }
+
+        // Animate memory cards on load with stagger
+        window.addEventListener('load', () => {
+            const cards = document.querySelectorAll('.memory-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animate-in');
+                }, index * 150);
+            });
+        });
+
+        // Add scroll-based animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.memory-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+
+</html>

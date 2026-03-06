@@ -1,0 +1,357 @@
+:root {
+    --gold: #dfb160;
+    --gold-light: #f3d488;
+    --gold-dark: #b58539;
+    --rose-gold: #b76e79;
+    --bg-dark: #070709;
+    --bg-gradient: linear-gradient(135deg, #070709 0%, #15111c 50%, #0c0812 100%);
+    --glass-bg: rgba(20, 16, 24, 0.5);
+    --glass-border: rgba(223, 177, 96, 0.2);
+    --font-heading: 'Playfair Display', serif;
+    --font-text: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-dark);
+    background-image: var(--bg-gradient);
+    font-family: var(--font-text);
+    overflow-x: hidden;
+    padding: clamp(1rem, 3vw, 2rem);
+    color: #fff;
+    position: relative;
+}
+
+/* Starry background container */
+#stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Cursor exactly matching style.css */
+.cursor {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    mix-blend-mode: screen;
+}
+
+.cursor.hover-state {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(223, 177, 96, 0.1);
+}
+
+.current-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold-light);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+}
+
+/* Header Section - Fixed at Top */
+.header-section {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(180deg, rgba(7, 7, 9, 0.98) 0%, rgba(7, 7, 9, 0.95) 70%, rgba(7, 7, 9, 0.8) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 3vw, 2rem);
+    text-align: center;
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: clamp(1rem, 3vw, 1.5rem);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding: clamp(1rem, 3vw, 2rem);
+}
+
+h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 700;
+    font-style: italic;
+    background: linear-gradient(to right, var(--gold-light), var(--gold), var(--rose-gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(223, 177, 96, 0.2);
+    margin-bottom: 0;
+    animation: floatingText 4s ease-in-out infinite alternate;
+}
+
+#reasons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(1.5rem, 3vw, 2rem);
+    width: 100%;
+    max-width: 1100px;
+    padding: 1rem;
+    margin: 0 auto 2rem;
+}
+
+@media (max-width: 768px) {
+    #reasons-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+}
+
+.reason-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    width: 100%;
+    max-width: 500px;
+}
+
+@media (max-width: 768px) {
+    .reason-card {
+        width: 90%;
+        max-width: 400px;
+        min-height: 180px;
+    }
+}
+
+.reason-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 20px rgba(223, 177, 96, 0.15);
+    border-color: rgba(223, 177, 96, 0.4);
+    z-index: 10;
+    /* Bring hovered card to front of the stack */
+}
+
+.reason-text {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.6;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 2;
+    color: #f2f2f2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Enhancing the GIF Overlay into a subtle elegant backdrop */
+.gif-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+}
+
+.gif-overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+    /* Keep it subtle so text remains readable */
+    filter: sepia(0.3) hue-rotate(-20deg) brightness(0.8);
+    transition: transform 0.5s ease;
+}
+
+.reason-card:hover .gif-overlay {
+    opacity: 1;
+}
+
+.reason-card:hover .gif-overlay img {
+    transform: scale(1.1);
+}
+
+/* Fixed Button Container */
+.shuffle-button {
+    position: relative;
+    padding: clamp(1rem, 3vw, 1.2rem) clamp(2.5rem, 6vw, 3.5rem);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    background: transparent;
+    border: 2px solid var(--gold);
+    border-radius: 50px;
+    color: var(--gold-light);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    font-family: var(--font-text);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 1;
+    box-shadow: 0 4px 15px rgba(223, 177, 96, 0.2);
+}
+
+.shuffle-button .btn-text {
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.shuffle-button .btn-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle, var(--gold) 0%, transparent 60%);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s ease;
+    z-index: 1;
+}
+
+.shuffle-button:hover {
+    border-color: transparent;
+    box-shadow: 0 10px 30px rgba(223, 177, 96, 0.3), 0 0 20px rgba(223, 177, 96, 0.2) inset;
+    transform: translateY(-3px);
+}
+
+.shuffle-button:hover .btn-text {
+    color: var(--bg-dark);
+    font-weight: 600;
+}
+
+.shuffle-button:hover .btn-glow {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.shuffle-button.story-mode .btn-glow {
+    background: radial-gradient(circle, var(--rose-gold) 0%, transparent 60%);
+}
+
+.reason-counter {
+    font-size: 0.85rem;
+    color: var(--gold);
+    opacity: 0.8;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    min-height: 1.2rem;
+}
+
+.floating {
+    position: fixed;
+    pointer-events: none;
+    color: var(--gold-light);
+    filter: drop-shadow(0 0 10px rgba(223, 177, 96, 0.6));
+    z-index: 0;
+}
+
+.ending-section {
+    margin-top: 3rem;
+    padding: 2rem;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.ending-section.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ending-text {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--rose-gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.teddy-hug {
+    width: clamp(150px, 30vw, 250px);
+    margin: 0 auto;
+    transform: scale(0);
+}
+
+.teddy-hug img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--glass-border);
+}
+
+@keyframes floatingText {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-8px);
+    }
+}
+
+/* Hide custom cursor on mobile/touch devices */
+@media (hover: none) and (pointer: coarse) {
+    * {
+        cursor: auto !important;
+    }
+    
+    .cursor,
+    .current-cursor-dot {
+        display: none !important;
+    }
+    
+    /* Make button more visible on mobile */
+    .shuffle-button {
+        border-width: 2px;
+        box-shadow: 0 5px 20px rgba(223, 177, 96, 0.4);
+        background: rgba(223, 177, 96, 0.05);
+    }
+    
+    .header-section {
+        padding: 1rem;
+    }
+}
