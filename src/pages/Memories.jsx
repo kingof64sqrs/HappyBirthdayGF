@@ -150,6 +150,27 @@ const Memories = () => {
                 </div>
             </section>
 
+            <section className="nandhana-message">
+                <h2 className="title-gradient">A Message from Nandhana 💌</h2>
+                <div className="message-content">
+                    <p>
+                        Happy Birthday to the most amazing friend! 🎉
+                    </p>
+                    <p>
+                        I'm so grateful to have you in my life. Thank you for always being there, for the laughs, the support, and all the beautiful memories we share. Life feels so much brighter with a friend like you.
+                    </p>
+                    <p>
+                        May this year bring you endless happiness, success, good health, and everything your heart wishes for. You truly deserve the best in the world.
+                    </p>
+                    <p>
+                        Cheers to more memories, adventures, and celebrations together. <strong>Have the most wonderful birthday!</strong> 🎂✨
+                    </p>
+                    <p className="signature">
+                        <em>— Nandhana</em>
+                    </p>
+                </div>
+            </section>
+
             <section className="final-message">
                 <h2>Thank You for Being You</h2>
                 <p>

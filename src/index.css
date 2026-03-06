@@ -912,6 +912,84 @@ h1.title-gradient {
     }
 }
 
+/* ---------------- Nandhana's Message Section ---------------- */
+.nandhana-message {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: clamp(2rem, 5vw, 3.5rem);
+    position: relative;
+    z-index: 3;
+    background: linear-gradient(135deg, rgba(223, 177, 96, 0.08), rgba(138, 43, 226, 0.05));
+    border: 1px solid rgba(223, 177, 96, 0.25);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(138, 43, 226, 0.08) inset;
+    animation: fadeInSpecial 1.2s ease-out 0.4s both;
+}
+
+.nandhana-message h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    text-align: center;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+}
+
+.nandhana-message .message-content {
+    position: relative;
+}
+
+.nandhana-message .message-content::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    font-size: 5rem;
+    font-family: var(--font-heading);
+    color: var(--gold);
+    opacity: 0.25;
+    line-height: 1;
+}
+
+.nandhana-message p {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    line-height: 1.9;
+    color: #e8e8e8;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+}
+
+.nandhana-message p strong {
+    color: var(--gold-light);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.nandhana-message .signature {
+    text-align: right;
+    font-style: italic;
+    color: var(--gold-light);
+    margin-top: 2.5rem;
+    margin-bottom: 0;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .nandhana-message {
+        margin: 3rem 1rem;
+        padding: 2rem 1.5rem;
+    }
+    
+    .nandhana-message .message-content::before {
+        font-size: 3.5rem;
+        top: -15px;
+        left: -5px;
+    }
+}
+
 /* ---------------- Gussa Notification Modal ---------------- */
 .gussa-notification-overlay {
     position: fixed;
