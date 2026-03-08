@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import confetti from 'canvas-confetti';
 import Celebration3D from '../components/Celebration3D';
+import FinaleExplosion from '../components/FinaleExplosion';
 
 const Home = () => {
     const [timeLeft, setTimeLeft] = useState({
@@ -152,10 +153,6 @@ const Home = () => {
 
     const handleAllCandlesBlown = () => {
         setWishesGranted(true);
-        gsap.fromTo('.wishes-granted-msg',
-            { scale: 0, opacity: 0, y: 40 },
-            { scale: 1, opacity: 1, y: 0, duration: 1.4, ease: 'elastic.out(1, 0.5)', delay: 0.3 }
-        );
     };
 
     const handleStart = () => {
@@ -185,6 +182,7 @@ const Home = () => {
 
     return (
         <div className={`home-wrapper${isBirthday ? ' birthday-active' : ''}`} ref={containerRef}>
+            <FinaleExplosion visible={wishesGranted} />
             <div className="home-container glass-card">
                 <h1 className="home-title title-gradient">Happy Birthday Prachi ✨</h1>
 
@@ -222,14 +220,6 @@ const Home = () => {
                                 <div className="celebration-subtitle">It's Your Special Day! 🎉</div>
                                 <div className="celebration-title">Wishing You Many More<br />Happy Returns of the Day!</div>
                             </div>
-
-                            {wishesGranted && (
-                                <div className="wishes-granted-msg" style={{ opacity: 0 }}>
-                                    <div className="wishes-icon">🌟✨🎂✨🌟</div>
-                                    <div className="wishes-text">All your birthday wishes have been made!</div>
-                                    <div className="wishes-subtext">May every single one of them come true 💖</div>
-                                </div>
-                            )}
                         </div>
                     )}
                 </div>
