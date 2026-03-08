@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
+import confetti from 'canvas-confetti';
+import Celebration3D from '../components/Celebration3D';
 
 const Home = () => {
     const [timeLeft, setTimeLeft] = useState({
@@ -10,19 +12,35 @@ const Home = () => {
         seconds: '00',
     });
     const [isBirthday, setIsBirthday] = useState(false);
+    const [hasOpenedGift, setHasOpenedGift] = useState(false);
+    const [wishesGranted, setWishesGranted] = useState(false);
     const [greeting, setGreeting] = useState('');
     const navigate = useNavigate();
     const containerRef = useRef(null);
     const typeRef = useRef(null);
+    const audioRef = useRef(null);
 
-    const targetDate = new Date('2026-03-09T00:00:00').getTime();
+    const targetDate = useRef(new Date().getTime() + 3000);
     const greetingText = "Hey! You're such an amazing person and wonderful elder sister! 🌟";
+
+    // Setup Audio
+    useEffect(() => {
+        audioRef.current = new Audio('/audio/happy-birthday.mp3');
+        audioRef.current.loop = true;
+
+        return () => {
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current.currentTime = 0;
+            }
+        };
+    }, []);
 
     // Countdown Logic
     useEffect(() => {
         const updateCountdown = () => {
             const now = new Date().getTime();
-            const distance = targetDate - now;
+            const distance = targetDate.current - now;
 
             if (distance < 0) {
                 setIsBirthday(true);
@@ -43,7 +61,18 @@ const Home = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // Animations
+    // Animate birthday celebration container in when isBirthday flips true
+    useEffect(() => {
+        if (!isBirthday) return;
+        gsap.to('.birthday-celebration-container', {
+            opacity: 1,
+            scale: 1,
+            duration: 1.2,
+            ease: 'back.out(1.3)',
+        });
+    }, [isBirthday]);
+
+    // Initial Animations
     useEffect(() => {
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -93,7 +122,48 @@ const Home = () => {
         };
     }, []);
 
+    const handleGiftOpened = () => {
+        setHasOpenedGift(true);
+
+        // Play Audio
+        if (audioRef.current) {
+            audioRef.current.play().catch(e => console.log('Audio autoplay prevented by browser', e));
+        }
+
+        // Sustained confetti shower
+        const duration = 5000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 999 };
+        const randomInRange = (min, max) => Math.random() * (max - min) + min;
+        const interval = setInterval(() => {
+            const timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) return clearInterval(interval);
+            const particleCount = 50 * (timeLeft / duration);
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+        }, 250);
+
+        // Text floats UP from around where the box was
+        gsap.fromTo('.celebration-text-reveal',
+            { scale: 0.4, opacity: 0, y: 220, rotationX: 30 },
+            { scale: 1, opacity: 1, y: 0, rotationX: 0, duration: 1.6, ease: 'back.out(1.6)', delay: 0.8 }
+        );
+    };
+
+    const handleAllCandlesBlown = () => {
+        setWishesGranted(true);
+        gsap.fromTo('.wishes-granted-msg',
+            { scale: 0, opacity: 0, y: 40 },
+            { scale: 1, opacity: 1, y: 0, duration: 1.4, ease: 'elastic.out(1, 0.5)', delay: 0.3 }
+        );
+    };
+
     const handleStart = () => {
+        if (audioRef.current) {
+            // Fade out audio gracefully before navigating
+            gsap.to(audioRef.current, { volume: 0, duration: 1, onComplete: () => audioRef.current.pause() });
+        }
+
         // Transition
         gsap.to('.glass-card', {
             scale: 20,
@@ -114,37 +184,58 @@ const Home = () => {
     };
 
     return (
-        <div className="home-wrapper" ref={containerRef}>
+        <div className={`home-wrapper${isBirthday ? ' birthday-active' : ''}`} ref={containerRef}>
             <div className="home-container glass-card">
                 <h1 className="home-title title-gradient">Happy Birthday Prachi ✨</h1>
+
                 <div className="countdown-container">
-                    <div className="countdown-label">
-                        {isBirthday ? "It's Your Special Day! 🎉" : 'Celebrating in'}
-                    </div>
-                    <div className="countdown-timer">
-                        <div className="time-unit">
-                            <span className="time-value" id="days">{timeLeft.days}</span>
-                            <span className="time-label">Days</span>
+                    {!isBirthday ? (
+                        <>
+                            <div className="countdown-label">Celebrating in</div>
+                            <div className="countdown-timer">
+                                <div className="time-unit">
+                                    <span className="time-value" id="days">{timeLeft.days}</span>
+                                    <span className="time-label">Days</span>
+                                </div>
+                                <div className="time-separator">:</div>
+                                <div className="time-unit">
+                                    <span className="time-value" id="hours">{timeLeft.hours}</span>
+                                    <span className="time-label">Hours</span>
+                                </div>
+                                <div className="time-separator">:</div>
+                                <div className="time-unit">
+                                    <span className="time-value" id="minutes">{timeLeft.minutes}</span>
+                                    <span className="time-label">Minutes</span>
+                                </div>
+                                <div className="time-separator">:</div>
+                                <div className="time-unit">
+                                    <span className="time-value" id="seconds">{timeLeft.seconds}</span>
+                                    <span className="time-label">Seconds</span>
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="birthday-celebration-container">
+                            <Celebration3D onOpenComplete={handleGiftOpened} onAllCandlesBlown={handleAllCandlesBlown} />
+
+                            <div className="celebration-text-reveal" style={{ opacity: 0, marginTop: '-2rem' }}>
+                                <div className="celebration-subtitle">It's Your Special Day! 🎉</div>
+                                <div className="celebration-title">Wishing You Many More<br />Happy Returns of the Day!</div>
+                            </div>
+
+                            {wishesGranted && (
+                                <div className="wishes-granted-msg" style={{ opacity: 0 }}>
+                                    <div className="wishes-icon">🌟✨🎂✨🌟</div>
+                                    <div className="wishes-text">All your birthday wishes have been made!</div>
+                                    <div className="wishes-subtext">May every single one of them come true 💖</div>
+                                </div>
+                            )}
                         </div>
-                        <div className="time-separator">:</div>
-                        <div className="time-unit">
-                            <span className="time-value" id="hours">{timeLeft.hours}</span>
-                            <span className="time-label">Hours</span>
-                        </div>
-                        <div className="time-separator">:</div>
-                        <div className="time-unit">
-                            <span className="time-value" id="minutes">{timeLeft.minutes}</span>
-                            <span className="time-label">Minutes</span>
-                        </div>
-                        <div className="time-separator">:</div>
-                        <div className="time-unit">
-                            <span className="time-value" id="seconds">{timeLeft.seconds}</span>
-                            <span className="time-label">Seconds</span>
-                        </div>
-                    </div>
+                    )}
                 </div>
-                <div className="home-greeting">{greeting}</div>
-                <button className="cta-button" onClick={handleStart}>
+
+                <div className="home-greeting">{isBirthday ? '' : greeting}</div>
+                <button className="cta-button" onClick={handleStart} style={{ display: isBirthday ? 'none' : undefined }}>
                     <span className="btn-text">Begin Celebration</span>
                     <span className="btn-glow"></span>
                 </button>
