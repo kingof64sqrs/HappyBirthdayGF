@@ -235,10 +235,6 @@ const BirthdayCake = ({ visible, blownCandles, onCandleBlow }) => {
 
     return (
         <group ref={cakeRef} position={[0, -0.2, 0]} scale={[0, 0, 0]}>
-            <mesh position={[0, 0, 0]}>
-                <cylinderGeometry args={[1.75, 1.95, 0.1, 32]} />
-                <meshStandardMaterial color="#c8b8d0" metalness={0.7} roughness={0.2} emissive="#9966aa" emissiveIntensity={0.1} />
-            </mesh>
             <mesh position={[0, 0.52, 0]}>
                 <cylinderGeometry args={[1.38, 1.38, 0.9, 32]} />
                 <meshStandardMaterial color="#ff80ab" roughness={0.35} emissive="#c2185b" emissiveIntensity={0.12} />
@@ -249,17 +245,9 @@ const BirthdayCake = ({ visible, blownCandles, onCandleBlow }) => {
                     <meshStandardMaterial color="#ffc2d4" roughness={0.4} metalness={0} />
                 </mesh>
             ))}
-            <mesh position={[0, 0.99, 0]}>
-                <torusGeometry args={[1.33, 0.11, 16, 32]} />
-                <meshStandardMaterial color="#f8b4c8" roughness={0.3} metalness={0} />
-            </mesh>
             <mesh position={[0, 1.35, 0]}>
                 <cylinderGeometry args={[0.92, 0.92, 0.72, 32]} />
                 <meshStandardMaterial color="#fce4ec" roughness={0.35} emissive="#e91e63" emissiveIntensity={0.1} />
-            </mesh>
-            <mesh position={[0, 1.72, 0]}>
-                <torusGeometry args={[0.87, 0.11, 16, 32]} />
-                <meshStandardMaterial color="#f8b4c8" roughness={0.3} metalness={0} />
             </mesh>
             {Array.from({ length: 6 }, (_, i) => i * (Math.PI * 2 / 6)).map((angle, i) => (
                 <mesh key={i} position={[Math.cos(angle) * 1.25, 0.66, Math.sin(angle) * 1.25]}>
