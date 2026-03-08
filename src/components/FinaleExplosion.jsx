@@ -6,7 +6,6 @@ import confetti from 'canvas-confetti';
 const ALL_PHOTOS = [
     { src: '/photos/WhatsApp%20Image%202026-03-06%20at%2011.13.08%20AM.jpeg',   title: 'Her Smile 💖'         },
     { src: '/photos/WhatsApp%20Image%202026-03-06%20at%2011.13.09%20AM.jpeg',   title: 'Together 🌸'          },
-    { src: '/photos/WhatsApp%20Image%202026-03-06%20at%2011.13.09%20AM%20(1).jpeg', title: 'Beautiful Soul ✨' },
     { src: '/photos/WhatsApp%20Image%202026-03-06%20at%2011.13.11%20AM.jpeg',   title: 'Precious 💫'          },
     { src: '/photos/WhatsApp%20Image%202026-03-06%20at%2011.13.11%20AM%20(1).jpeg', title: 'Joyful 🎉'        },
     { src: '/photos/WhatsApp%20Image%202026-03-06%20at%2011.13.12%20AM.jpeg',   title: 'Always There 🌺'      },
@@ -18,6 +17,7 @@ const ALL_PHOTOS = [
     { src: '/photos/WhatsApp%20Image%202026-03-06%20at%201.22.31%20PM.jpeg',    title: 'Pure Joy 💖'          },
     { src: '/photos/WhatsApp%20Image%202026-03-06%20at%201.22.59%20PM.jpeg',    title: 'Cherished ✨'         },
     { src: '/photos/WhatsApp%20Image%202026-03-06%20at%201.24.34%20PM.jpeg',    title: 'Forever 💝'           },
+    { src: '/photos/WhatsApp%20Image%202026-03-09%20at%2012.44.41%20AM.jpeg',   title: 'Holi Celebrations 🌈' },
 ];
 
 // Where each photo lands (vw/vh offsets from center of screen)
