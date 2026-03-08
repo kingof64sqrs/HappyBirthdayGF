@@ -69,7 +69,7 @@ const GiftBox = ({ stage, onOpen, onDropComplete }) => {
                 position={[0, 0, 0]}
                 onClick={stage === 'idle' ? onOpen : undefined}
                 onPointerOver={() => { if (stage === 'idle') document.body.style.cursor = 'pointer'; }}
-                onPointerOut={() => { document.body.style.cursor = 'auto'; }}
+                onPointerOut={() => { document.body.style.cursor = ''; }}
             >
                 <boxGeometry args={[2.5, 2.5, 2.5]} />
                 <meshBasicMaterial transparent opacity={0} />
@@ -156,11 +156,11 @@ const Candle = ({ position, blown, onBlow, index }) => {
             position={position}
             onClick={(e) => { e.stopPropagation(); if (!blown) onBlow(index); }}
             onPointerOver={() => { if (!blown) document.body.style.cursor = 'pointer'; }}
-            onPointerOut={() => { document.body.style.cursor = 'auto'; }}
+            onPointerOut={() => { document.body.style.cursor = ''; }}
         >
             <mesh position={[0, 0.42, 0]}>
                 <cylinderGeometry args={[0.052, 0.048, 0.82, 16]} />
-                <meshStandardMaterial color="#fff8f8" roughness={0.55} />
+                <meshStandardMaterial color="#f9d0d8" roughness={0.6} metalness={0} />
             </mesh>
             {[0.18, 0.42, 0.66].map((y, i) => (
                 <mesh key={i} position={[0, y, 0]}>
@@ -190,7 +190,7 @@ const Candle = ({ position, blown, onBlow, index }) => {
                         </mesh>
                         <mesh position={[0, 0.22, 0]}>
                             <sphereGeometry args={[0.015, 8, 8]} />
-                            <meshBasicMaterial color="#ffffff" />
+                            <meshBasicMaterial color="#ffe566" />
                         </mesh>
                     </group>
                     <pointLight ref={lightRef} position={[0, 1.05, 0]} distance={2.2} intensity={1.8} color="#ffae00" />
@@ -234,7 +234,7 @@ const BirthdayCake = ({ visible, blownCandles, onCandleBlow }) => {
     });
 
     return (
-        <group ref={cakeRef} position={[0, -0.9, 0]} scale={[0, 0, 0]}>
+        <group ref={cakeRef} position={[0, -0.2, 0]} scale={[0, 0, 0]}>
             <mesh position={[0, 0, 0]}>
                 <cylinderGeometry args={[1.75, 1.95, 0.1, 32]} />
                 <meshStandardMaterial color="#c8b8d0" metalness={0.7} roughness={0.2} emissive="#9966aa" emissiveIntensity={0.1} />
@@ -246,12 +246,12 @@ const BirthdayCake = ({ visible, blownCandles, onCandleBlow }) => {
             {Array.from({ length: 10 }, (_, i) => i * (Math.PI * 2 / 10)).map((angle, i) => (
                 <mesh key={i} position={[Math.cos(angle) * 1.32, 0.94, Math.sin(angle) * 1.32]}>
                     <sphereGeometry args={[0.09, 8, 8]} />
-                    <meshStandardMaterial color="#ffffff" roughness={0.3} metalness={0} />
+                    <meshStandardMaterial color="#ffc2d4" roughness={0.4} metalness={0} />
                 </mesh>
             ))}
             <mesh position={[0, 0.99, 0]}>
                 <torusGeometry args={[1.33, 0.11, 16, 32]} />
-                <meshStandardMaterial color="#ffffff" roughness={0.2} emissive="#eeeeee" emissiveIntensity={0.2} />
+                <meshStandardMaterial color="#f8b4c8" roughness={0.3} metalness={0} />
             </mesh>
             <mesh position={[0, 1.35, 0]}>
                 <cylinderGeometry args={[0.92, 0.92, 0.72, 32]} />
@@ -259,7 +259,7 @@ const BirthdayCake = ({ visible, blownCandles, onCandleBlow }) => {
             </mesh>
             <mesh position={[0, 1.72, 0]}>
                 <torusGeometry args={[0.87, 0.11, 16, 32]} />
-                <meshStandardMaterial color="#ffffff" roughness={0.2} emissive="#eeeeee" emissiveIntensity={0.2} />
+                <meshStandardMaterial color="#f8b4c8" roughness={0.3} metalness={0} />
             </mesh>
             {Array.from({ length: 6 }, (_, i) => i * (Math.PI * 2 / 6)).map((angle, i) => (
                 <mesh key={i} position={[Math.cos(angle) * 1.25, 0.66, Math.sin(angle) * 1.25]}>
@@ -291,18 +291,18 @@ const POLAROID_PHOTOS = [
 
 const FLY_FROM = [
     { x: '-140vw', y: '-50vh' },
-    { x: '140vw',  y: '-40vh' },
-    { x: '-140vw', y: '40vh'  },
-    { x: '140vw',  y: '50vh'  },
-    { x: '0vw',    y: '140vh' },
+    { x: '140vw', y: '-40vh' },
+    { x: '-140vw', y: '40vh' },
+    { x: '140vw', y: '50vh' },
+    { x: '0vw', y: '140vh' },
 ];
 
 const LAND_AT = [
     { x: '-43vw', y: '-34vh', rot: -16 },
-    { x: '43vw',  y: '-32vh', rot: 14  },
-    { x: '-43vw', y: '28vh',  rot: 12  },
-    { x: '43vw',  y: '26vh',  rot: -12 },
-    { x: '0vw',   y: '40vh',  rot: 5   },
+    { x: '43vw', y: '-32vh', rot: 14 },
+    { x: '-43vw', y: '28vh', rot: 12 },
+    { x: '43vw', y: '26vh', rot: -12 },
+    { x: '0vw', y: '46vh', rot: 5 },
 ];
 
 const PolaroidPhotos = ({ visible }) => {
@@ -417,8 +417,8 @@ const Celebration3D = ({ onOpenComplete, onAllCandlesBlown }) => {
 
         const burst = (delay) =>
             setTimeout(() => {
-                confetti({ particleCount: 130, spread: 90, origin: { x: 0.5, y: 0.55 }, colors: ['#e91e63','#ffd700','#ff80ab','#ffffff','#9c27b0','#00e5ff'], startVelocity: 50, gravity: 0.75, scalar: 1.1 });
-                confetti({ particleCount: 70, spread: 360, origin: { x: 0.5, y: 0.55 }, colors: ['#ffd700','#ff1493','#00e5ff','#ffffff'], startVelocity: 35, gravity: 0.5, ticks: 80 });
+                confetti({ particleCount: 130, spread: 90, origin: { x: 0.5, y: 0.55 }, colors: ['#e91e63', '#ffd700', '#ff80ab', '#ffffff', '#9c27b0', '#00e5ff'], startVelocity: 50, gravity: 0.75, scalar: 1.1 });
+                confetti({ particleCount: 70, spread: 360, origin: { x: 0.5, y: 0.55 }, colors: ['#ffd700', '#ff1493', '#00e5ff', '#ffffff'], startVelocity: 35, gravity: 0.5, ticks: 80 });
             }, delay);
 
         burst(0); burst(350); burst(750);
@@ -436,15 +436,15 @@ const Celebration3D = ({ onOpenComplete, onAllCandlesBlown }) => {
             const next = new Set(prev);
             next.add(index);
 
-            confetti({ particleCount: 35, spread: 65, origin: { x: 0.5, y: 0.5 }, colors: ['#ffd700','#ff80ab','#ffffff','#9c27b0'], startVelocity: 22, gravity: 0.95, scalar: 0.85 });
+            confetti({ particleCount: 35, spread: 65, origin: { x: 0.5, y: 0.5 }, colors: ['#ffd700', '#ff80ab', '#ffffff', '#9c27b0'], startVelocity: 22, gravity: 0.95, scalar: 0.85 });
 
             if (next.size === 5) {
                 setTimeout(() => {
                     setStage('done');
                     const end = Date.now() + 5000;
                     const fire = () => {
-                        confetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ffd700','#e91e63','#ffffff'], startVelocity: 55 });
-                        confetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#9c27b0','#00e5ff','#ffd700'], startVelocity: 55 });
+                        confetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ffd700', '#e91e63', '#ffffff'], startVelocity: 55 });
+                        confetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#9c27b0', '#00e5ff', '#ffd700'], startVelocity: 55 });
                         if (Date.now() < end) requestAnimationFrame(fire);
                     };
                     fire();
@@ -456,15 +456,15 @@ const Celebration3D = ({ onOpenComplete, onAllCandlesBlown }) => {
     }, [onAllCandlesBlown]);
 
     const promptText =
-        stage === 'idle'    ? '🎁 Click The Gift Box To Open!' :
-        stage === 'cake'    ? '🎂 Click Each Candle To Blow It Out!' :
-        stage === 'done'    ? '🎉 Wishes Granted — Happy Birthday! 🎉' : '';
+        stage === 'idle' ? '🎁 Click The Gift Box To Open!' :
+            stage === 'cake' ? '🎂 Click Each Candle To Blow It Out!' :
+                stage === 'done' ? '🎉 Wishes Granted — Happy Birthday! 🎉' : '';
 
     return (
-        <div style={{ width: '100%', height: '440px', position: 'relative', zIndex: 10, margin: '1rem 0 0' }}>
+        <div className="celebration-3d-wrapper" style={{ width: '100%', height: '50vh', minHeight: '450px', maxHeight: '600px', position: 'relative', zIndex: 10, margin: '1rem 0' }}>
             {promptText && (
                 <div className={`gift-prompt ${stage === 'done' ? 'done-prompt' : ''}`}
-                    style={{ position: 'absolute', top: '6px', width: '100%', textAlign: 'center', pointerEvents: 'none', zIndex: 20 }}>
+                    style={{ position: 'absolute', top: '0', width: '100%', textAlign: 'center', pointerEvents: 'none', zIndex: 20 }}>
                     {promptText}
                 </div>
             )}
@@ -477,6 +477,7 @@ const Celebration3D = ({ onOpenComplete, onAllCandlesBlown }) => {
                 camera={{ position: [0, 3, 8], fov: 42 }}
                 gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
                 shadows
+                style={{ cursor: 'none' }}
             >
                 <ambientLight intensity={0.7} />
                 <directionalLight position={[4, 8, 4]} intensity={2} color="#fff5ee" />

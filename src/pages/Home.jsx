@@ -218,7 +218,7 @@ const Home = () => {
                         <div className="birthday-celebration-container">
                             <Celebration3D onOpenComplete={handleGiftOpened} onAllCandlesBlown={handleAllCandlesBlown} />
 
-                            <div className="celebration-text-reveal" style={{ opacity: 0, marginTop: '-2rem' }}>
+                            <div className="celebration-text-reveal" style={{ opacity: 0, marginTop: '1rem' }}>
                                 <div className="celebration-subtitle">It's Your Special Day! 🎉</div>
                                 <div className="celebration-title">Wishing You Many More<br />Happy Returns of the Day!</div>
                             </div>

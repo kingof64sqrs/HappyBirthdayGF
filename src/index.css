@@ -224,7 +224,7 @@ h1.title-gradient {
 
 .home-wrapper.birthday-active .home-container {
     max-width: min(98vw, 960px);
-    padding: clamp(1rem, 3vw, 2rem) clamp(0.75rem, 2vw, 1.5rem);
+    padding: clamp(1rem, 3vw, 2rem) clamp(0.75rem, 2vw, 1.5rem) clamp(3rem, 6vw, 5rem);
 }
 
 .home-wrapper.birthday-active .glass-card {
